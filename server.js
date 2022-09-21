@@ -1,5 +1,5 @@
-const { ApolloServer, gql } = require("apollo-server");
 import { PrismaClient } from "@prisma/client";
+import { ApolloServer, gql } from "apollo-server";
 
 const client = new PrismaClient();
 
@@ -12,9 +12,9 @@ const typeDefs = gql`
     createdAt: String!
     updatedAt: String!
   }
-
   type Query {
     movies: [Movie]
+
     movie(id: Int!): Movie
   }
   type Mutation {
@@ -28,7 +28,6 @@ const resolvers = {
     movies: () => client.movie.findMany(),
     movie: (_, { id }) => ({ title: "Hello", year: 2021 }),
   },
-
   Mutation: {
     createMovie: (_, { title, year, genre }) =>
       client.movie.create({
@@ -38,18 +37,15 @@ const resolvers = {
           genre,
         },
       }),
-
     deleteMovie: (_, { id }) => {
       return true;
     },
   },
 };
-
 const server = new ApolloServer({
   typeDefs,
   resolvers,
 });
-
 server
   .listen()
   .then(() => console.log("Server is running on http://localhost:4000/"));
