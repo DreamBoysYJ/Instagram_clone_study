@@ -1,3 +1,4 @@
+import client from "../../client";
 import { protectedResolver } from "../../users/users.utils";
 
 export default {
@@ -5,11 +6,27 @@ export default {
     uploadPhoto: protectedResolver(
       async (_, { file, caption }, { loggedInUser }) => {
         if (caption) {
-          // parse caption
-          // get or create Hashtags
+          const hashtags = caption.match(/#[ㄱ-ㅎ|ㅏ-ㅣ|가-힣|\w]+/g);
+          console.log(hashtags);
         }
-        // save photo with parsed hashtags
-        // add the photo to the hashtags
+        client.photo.craete({
+          data: {
+            file,
+            caption,
+            hashtags: {
+              connectOrCreate: [
+                {
+                  where: {
+                    hashtag: "#food",
+                  },
+                  create: {
+                    hashtag: "#food",
+                  },
+                },
+              ],
+            },
+          },
+        });
       }
     ),
   },
