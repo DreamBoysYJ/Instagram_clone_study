@@ -5,7 +5,9 @@ export default {
   Mutation: {
     toggleLike: protectedResolver(async (_, { id }, { loggedInUser }) => {
       const photo = await client.photo.findUnique({
-        where: { id },
+        where: {
+          id,
+        },
       });
       if (!photo) {
         return {
@@ -14,7 +16,7 @@ export default {
         };
       }
       const likeWhere = {
-        photoId_userid: {
+        photoId_userId: {
           userId: loggedInUser.id,
           photoId: id,
         },
