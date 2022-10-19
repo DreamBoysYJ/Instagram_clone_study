@@ -10,6 +10,7 @@ import { graphql } from "graphql";
 const apollo = new ApolloServer({
   resolvers,
   typeDefs,
+
   context: async ({ req }) => {
     return {
       loggedInUser: await getUser(req.headers.token),

@@ -1,5 +1,4 @@
 import AWS from "aws-sdk";
-
 AWS.config.update({
   credentials: {
     accessKeyId: process.env.AWS_KEY,
@@ -7,17 +6,17 @@ AWS.config.update({
   },
 });
 
-export const uploadPhoto = async (file, userId) => {
-  console.log(file, "d", userId);
+export const uploadToS3 = async (file, userId, folderName) => {
   const { filename, createReadStream } = await file;
   const readStream = createReadStream();
-  console.log(filename, createReadStream, readStream);
-  const objectName = `${userId}-${Date.now()}-${filename}`;
+  const objectName = `${folderName}/${userId}-${Date.now()}-${filename}`;
+  console.log(objectName);
+
   const { Location } = await new AWS.S3()
     .upload({
       Bucket: "insta-clone-study1-youngju",
       Key: objectName,
-      ACL: "public-read",
+      ACL: "public-read-write",
       Body: readStream,
     })
     .promise();
