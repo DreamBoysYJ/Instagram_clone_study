@@ -1,6 +1,3 @@
-import client from "./client";
-import { gql } from "apollo-server";
-import { makeExecutableSchema } from "@graphql-tools/schema";
 import { loadFilesSync } from "@graphql-tools/load-files";
 import { mergeResolvers, mergeTypeDefs } from "@graphql-tools/merge";
 

@@ -3,7 +3,7 @@ import { protectedResolver } from "../../users/users.utils";
 
 export default {
   Query: {
-    seeFeed: protectedResolver((_, __, { loggedInUser }) => {
+    seeFeed: protectedResolver((_, __, { loggedInUser }) =>
       client.photo.findMany({
         where: {
           OR: [
@@ -24,7 +24,7 @@ export default {
         orderBy: {
           createdAt: "desc",
         },
-      });
-    }),
+      })
+    ),
   },
 };
