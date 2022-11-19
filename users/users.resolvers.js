@@ -2,7 +2,7 @@ import client from "../client";
 
 export default {
   User: {
-    totalFollwing: ({ id }) =>
+    totalFollowing: ({ id }) =>
       client.user.count({
         where: {
           followers: {
@@ -13,7 +13,7 @@ export default {
         },
       }),
 
-    totalFollwers: ({ id }) =>
+    totalFollowers: ({ id }) =>
       client.user.count({
         where: {
           following: {
@@ -45,6 +45,6 @@ export default {
       });
       return Boolean(exists);
     },
-    photos: ({ id }) => client.user.findUnique({ where: { id } }).photos(),
+    photos: ({ id }) => client.user.findFirst({ where: { id } }).photos(),
   },
 };

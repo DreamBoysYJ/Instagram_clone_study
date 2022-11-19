@@ -13,8 +13,8 @@ export default gql`
     photos: [Photo]
     following: [User]
     followers: [User]
-    totalFollwing: Int!
-    totalFollwers: Int!
+    totalFollowing: Int!
+    totalFollowers: Int!
     isMe: Boolean!
     isFollowing: Boolean!
   }
